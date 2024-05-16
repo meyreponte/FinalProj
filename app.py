@@ -25,7 +25,7 @@ def load_model():
     return model
 
 # Define the class names
-class_names = ['Kitchen', 'Living Room', 'Dinning', 'Bedroom', 'Bathroom']
+class_names = ['Bedroom', 'bathroom', 'Dinning', 'Living Room', 'Kitchen']
 
 # Example images
 example_images = {
@@ -48,9 +48,9 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 def import_and_predict(image_data, model):
     size = (128, 128)
     image = ImageOps.fit(image_data, size)
+    img = np.asarray(image)
     img = np.expand_dims(img, axis=0)
     img = img / 255.0
-    img = np.asarray(image)
     prediction = model.predict(img)
     return prediction
 
