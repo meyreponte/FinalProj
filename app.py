@@ -67,8 +67,8 @@ if uploaded_file is not None:
 
     if confidence < confidence_threshold:
         predicted_class = "Unknown"
-    else:
-        predicted_class = class_names[predicted_class]
+    #else:
+        #predicted_class = class_names[predicted_class]
 
     st.write(f"Prediction: {predicted_class}")
     st.write(f"Confidence: {confidence:.2f}")
