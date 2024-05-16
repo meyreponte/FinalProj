@@ -65,8 +65,8 @@ if uploaded_file is not None:
     confidence = np.max(prediction)
     confidence_threshold = 0.4
 
-    #if confidence < confidence_threshold:
-        #predicted_class = "Unknown"
+    if confidence < confidence_threshold:
+        predicted_class = "Unknown"
     #else:
         #predicted_class = class_names[predicted_class]
 
