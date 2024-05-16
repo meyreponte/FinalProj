@@ -21,31 +21,27 @@ Date Submitted: May 17, 2024
 # Load the trained model
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('best_model65p2%.hdf5')
+    model = tf.keras.models.load_model('best_model_room460%.hdf5')
     return model
 
 # Define the class names
-class_names = ['Cardboard', 'Food Organics', 'Glass', 'Metal', 'Miscellaneous Trash', 'Paper', 'Plastic', 'Textile Trash', 'Vegetation']
+class_names = ['Kitchen', 'Living Room', 'Dinning', 'Bedroom', 'Bathroom']
 
 # Example images
 example_images = {
-    'Cardboard': 'RealWaste/Cardboard/Cardboard_1.jpg',
-    'Food Organics': 'RealWaste/Food Organics/Food Organics_1.jpg',
-    'Glass': 'RealWaste/Glass/Glass_1.jpg',
-    'Metal': 'RealWaste/Metal/Metal_1.jpg',
-    'Miscellaneous Trash': 'RealWaste/Miscellaneous Trash/Miscellaneous Trash_1.jpg',
-    'Paper': 'RealWaste/Paper/Paper_1.jpg',
-    'Plastic': 'RealWaste/Plastic/Plastic_1.jpg',
-    'Textile Trash': 'RealWaste/Textile Trash/Textile Trash_1.jpg',
-    'Vegetation': 'RealWaste/Vegetation/Vegetation_1.jpg'
+    'Kitchen': 'kitchen_1.jpg',
+    'Living Room': 'living_1.jpg',
+    'Dinning': 'din_1.jpg',
+    'Bedroom': 'bed_1.jpg',
+    'Bathroom': 'bath_1.jpg'
 }
 
 model = load_model()
 
 
 # Streamlit app
-st.title("Waste Classification")
-st.write("Upload an image to classify the type of waste.")
+st.title("House Rooms Classification")
+st.write("Upload an image to classify the type of house room.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
@@ -67,6 +63,12 @@ if uploaded_file is not None:
     prediction = import_and_predict(image, model)
     predicted_class = class_names[np.argmax(prediction)]
     confidence = np.max(prediction)
+    confidence_threshold = 0.4
+
+    if confidence < confidence_threshold:
+        predicted_class = "Unknown"
+    else:
+        predicted_class = class_names[predicted_class_index]
 
     st.write(f"Prediction: {predicted_class}")
     st.write(f"Confidence: {confidence:.2f}")
