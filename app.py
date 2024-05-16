@@ -25,7 +25,7 @@ def load_model():
     return model
 
 # Define the class names
-class_names = ['Bedroom', 'bathroom', 'Dinning', 'Living Room', 'Kitchen']
+class_names = ['Bathroom', 'Bedroom', 'Dinning', 'Kitchen', 'Livingroom']
 
 # Example images
 example_images = {
